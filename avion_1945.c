@@ -1,6 +1,8 @@
 #include <allegro.h>
+#include "bala.h"
 
 void init();
+
 void deinit();
 
 int main() {
