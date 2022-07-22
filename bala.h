@@ -8,7 +8,6 @@ struct Bala
 {
 	
 int x;
-
 int y;	
 
 BITMAP *sprite;

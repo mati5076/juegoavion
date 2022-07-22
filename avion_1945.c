@@ -1,9 +1,75 @@
 #include <allegro.h>
 #include "bala.h"
 
+#define MAXCOL  35
+#define MAXFIL  25
+
+BITMAP *pared;
+
+BITMAP *buffer;
+
 void init();
 
 void deinit();
+
+char escena[MAXCOL][MAXFIL]={
+	"XXXXXXXXXXXXXXXXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"X             XXXXXXXXXXX",
+	"XXXXXXXXXXXXXXXXXXXXXXXXX",
+};
+
+
+void pantalla()
+{
+	blit(buffer,screen,0,0,0,0,700,680);
+}
+/*void dibujar_mapa()//funcion que dibuja la tierra con el arreglo
+{
+	int lim,tan;
+	
+	for(lim=0;lim<MAXCOL;lim++)
+	{
+		for(tan=0;tan<MAXFIL;tan++)
+		{
+			if(escena[lim][tan] == 'X')
+			{
+				draw_sprite(buffer,pared,lim,tan);
+			}
+		}
+	}
+}*/
 
 int main() {
 	init();
@@ -12,6 +78,8 @@ int main() {
 	int y=450;
 	int x1=0;
 	int y1=155;
+	int x2=200;
+	int y2=450;
 	
 	BITMAP *buffer = create_bitmap(440,580); 
 
@@ -23,6 +91,11 @@ int main() {
 	
 	fondo=load_bitmap("azul.bml.bmp",NULL); 
 	
+	BITMAP *sprite;//insertar las balas para el jugador 
+	
+	sprite = load_bitmap("disp2.bmp",NULL);
+	
+	pared= load_bitmap("tierra.bmp",NULL);
 	
 	while (!key[KEY_ESC]) // ciclo que ayuda a mover el avion y deja la imagen de fondo 
 	{
@@ -30,6 +103,12 @@ int main() {
 
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
+		/////////////////////////////////
+		
+		blit(pared,screen,0,0,0,0,700,600);
+		
+		blit(pared,screen,0,0,x1,y1,pared->w,pared->h);
+		////////////////////////////////////////////
 		//avion
 		
 		blit(buffer,screen,0,0,0,0,700,600);
@@ -60,7 +139,12 @@ int main() {
 			blit(buffer,screen,0,0,0,0,700,600);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
-		
+		else if(key[KEY_SPACE])
+		{
+			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
+			blit(buffer,screen,0,0,0,0,700,600);	
+			blit(sprite,screen,0,0,x2,y2,sprite->w,sprite->h);
+		}
 		// "botones de reserva"
 		if(key[KEY_D])
 		{
