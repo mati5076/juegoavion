@@ -1,8 +1,15 @@
 #include <allegro.h>
+
+#include<stdio.h>
+
+#include<stdlib.h>
+
 #include "bala.h"
 
-#define MAXCOL  35
-#define MAXFIL  25
+#define MAXCOL 35
+#define MAXFIL 25
+
+BITMAP *avion;
 
 BITMAP *pared;
 
@@ -12,68 +19,26 @@ void init();
 
 void deinit();
 
-char escena[MAXCOL][MAXFIL]={
-	"XXXXXXXXXXXXXXXXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"X             XXXXXXXXXXX",
-	"XXXXXXXXXXXXXXXXXXXXXXXXX",
-};
-
-
-void pantalla()
+void f()
 {
-	blit(buffer,screen,0,0,0,0,700,680);
-}
-/*void dibujar_mapa()//funcion que dibuja la tierra con el arreglo
-{
-	int lim,tan;
-	
-	for(lim=0;lim<MAXCOL;lim++)
+	FILE * archivo = fopen ("generar.txt" , "r");
+	if(archivo = NULL)
 	{
-		for(tan=0;tan<MAXFIL;tan++)
-		{
-			if(escena[lim][tan] == 'X')
-			{
-				draw_sprite(buffer,pared,lim,tan);
-			}
-		}
+		printf("error al leer el archivo");
+		system("pause");
 	}
-}*/
-
-int main() {
+	char prueba;
+	while(feof (archivo) ==0)
+	{
+		prueba=fgetc(archivo);
+		printf("%c",prueba);
+	}
+	fclose(archivo);
+	printf("\n\nse ha leido bien");
+}
+int main()
+{
 	init();
-	
 	int x=200;
 	int y=450;
 	int x1=0;
@@ -81,9 +46,8 @@ int main() {
 	int x2=200;
 	int y2=450;
 	
-	BITMAP *buffer = create_bitmap(440,580); 
-
-	BITMAP *avion;//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
+	BITMAP *buffer = create_bitmap(440,580);
+	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 
 	avion=load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
 	
@@ -95,54 +59,50 @@ int main() {
 	
 	sprite = load_bitmap("disp2.bmp",NULL);
 	
-	pared= load_bitmap("tierra.bmp",NULL);
+	pared= load_bitmap("roca.bmp",NULL);
 	
-	while (!key[KEY_ESC]) // ciclo que ayuda a mover el avion y deja la imagen de fondo 
+	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
-		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);
-
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
-		/////////////////////////////////
+		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
+		/////
 		
-		blit(pared,screen,0,0,0,0,700,600);
+		blit(pared,buffer,0,0,x1,y1,pared->w,pared->h);
 		
-		blit(pared,screen,0,0,x1,y1,pared->w,pared->h);
-		////////////////////////////////////////////
 		//avion
-		
 		blit(buffer,screen,0,0,0,0,700,600);
 		
-		blit(avion,screen,0,0,x,y,100,112);
+		blit(avion,screen,0,0,x,y,avion->w,avion->h);
 
 		if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
-			x+=50;
+			x+=50;//hace que se mueva hacia la derecha
 			blit(buffer,screen,0,0,0,0,440,580);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_LEFT])
 		{
-			x-=50;
+			x-=50;//hace que se mueva hacia la izquierda
 			blit(buffer,screen,0,0,0,0,700,600);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_UP])
 		{
-			y-=50;
+			y-=50;//hace que se mueva hacia arriba , el signo menos es porque allegro tiene invertido las direcciones de arriba y abajo 
 			blit(buffer,screen,0,0,0,0,700,600);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_DOWN])
 		{
-			y+=50;
+			y+=50;//se mueve hacia abajo
 			blit(buffer,screen,0,0,0,0,700,600);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_SPACE])
 		{
 			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
-			blit(buffer,screen,0,0,0,0,700,600);	
+			blit(buffer,screen,0,0,0,0,700,600);
 			blit(sprite,screen,0,0,x2,y2,sprite->w,sprite->h);
 		}
 		// "botones de reserva"
@@ -169,34 +129,37 @@ int main() {
 			y+=50;
 			blit(buffer,screen,0,0,0,0,700,600);
 			blit(avion,screen,0,0,x,y,100,112);
-		} 
+		}
 		rest(30);
 	}
-
+	destroy_bitmap(buffer);
+	destroy_bitmap(avion);
 	deinit();
+	
 	return 0;
 }
 END_OF_MAIN()
 
-void init() {
+void init() 
+{
 	int depth, res;
 	allegro_init();
 	depth = desktop_color_depth();
 	if (depth == 0) depth = 32;
 	set_color_depth(depth);
-	res = set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0);
-	if (res != 0) {
+	res = set_gfx_mode(GFX_AUTODETECT_WINDOWED, 440,680, 0, 0);
+	if (res != 0) 
+	{
 		allegro_message(allegro_error);
 		exit(-1);
 	}
 
 	install_timer();
-	install_keyboard();
+	install_keyboard(); 
 	install_mouse();
-	/* add other initializations here */
 }
 
-void deinit() {
+void deinit() 
+{
 	clear_keybuf();
-	/* add other deinitializations here */
 }
