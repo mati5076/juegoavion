@@ -6,7 +6,7 @@
 
 #include "bala.h"
 
-#define MAXCOL 35
+#define MAXCOL 15
 #define MAXFIL 25
 
 BITMAP *fondo;//insertar la imagen de fondo 
@@ -65,20 +65,18 @@ void leer()//codigo de ayuda por mi compañero francisco
 }
 
 void dibujar()
-{		
-	blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);
-
-	draw_sprite(buffer,fondo,0,0);
+{
+	leer();
 	
-    for(i=0;i<MAXFIL;i++)
+	for(i=0;i<MAXFIL;i++)
 	{
         for(j=0;j<MAXCOL;j++)
 		{
 			if (escena[i][j] == 'X')
 			{
-				draw_sprite(buffer,fondo,i*2,j*2);
+				draw_sprite(screen,pared,i,j);
             }
-        }
+		}
     }
 }
 
@@ -91,8 +89,7 @@ int main()
 	int y1=155;
 	int x2=200;
 	int y2=450;
-	int cont=0;
-	
+		
 	BITMAP *buffer = create_bitmap(440,580);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 
@@ -104,12 +101,16 @@ int main()
 	
 	sprite = load_bitmap("disp2.bmp",NULL);
 	
-	pared= load_bitmap("roca.bmp",NULL);
+	pared= load_bitmap("paredd.bmp",NULL);
 
 	set_window_title("1945");
+	
+	BITMAP *disparr;
+	
+	disparr = load_bitmap("disp2.bmp",NULL);
 		
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
-	{
+	{	
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
@@ -118,12 +119,16 @@ int main()
 		blit(buffer,screen,0,0,0,0,700,600);
 		
 		blit(avion,screen,0,0,x,y,avion->w,avion->h);
+		
+		dibujar();
+		
+		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);		
+		
 		if(key[KEY_SPACE])
 		{
 			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
 			blit(buffer,screen,0,0,0,0,700,600);
 			blit(sprite,screen,0,0,x2,y2,sprite->w,sprite->h);
-			cont++;
 		}
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
