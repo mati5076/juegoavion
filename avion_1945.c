@@ -7,11 +7,7 @@
 #include "bala.h"
 
 #define MAXCOL 15
-#define MAXFIL 25
-
-BITMAP *fondo;//insertar la imagen de fondo 
-
-BITMAP *avion;
+#define MAXFIL 20
 
 BITMAP *pared;
 
@@ -20,16 +16,16 @@ BITMAP *buffer;
 void init();
 
 void deinit();
-
-int i,j;
-
-char prueba;
 	
 char escena[MAXFIL][MAXCOL];
 
 void leer()//codigo de ayuda por mi compañero francisco
-{	
-	FILE * archivo = fopen ("generar.txt" , "r");//lectura de archivo de texto
+{
+	int i,j;
+	
+	char prueba;
+	
+	FILE * archivo = fopen ("Mapa2.txt" , "r");//lectura de archivo de texto
 	if(archivo==NULL)
 	{
 		printf("error al abrir el archivo");
@@ -66,18 +62,20 @@ void leer()//codigo de ayuda por mi compañero francisco
 
 void dibujar()
 {
+	int i,j;
+	
 	leer();
 	
 	for(i=0;i<MAXFIL;i++)
 	{
-        for(j=0;j<MAXCOL;j++)
+		for(j=0;j<MAXCOL;j++)
 		{
-			if (escena[i][j] == 'X')
+			if(escena[i][j] == 'X')
 			{
-				draw_sprite(screen,pared,i,j);
-            }
+				draw_sprite(screen,pared,20*j,15*i);
+			}
 		}
-    }
+	}
 }
 
 int main()
@@ -89,40 +87,44 @@ int main()
 	int y1=155;
 	int x2=200;
 	int y2=450;
-		
+			
 	BITMAP *buffer = create_bitmap(440,580);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
+	
+	BITMAP *avion;
 
 	avion=load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
-		
+	
+	BITMAP *fondo;//insertar la imagen de fondo 
+
 	fondo=load_bitmap("azul.bml.bmp",NULL); 
 	
 	BITMAP *sprite;//insertar las balas para el jugador 
 	
 	sprite = load_bitmap("disp2.bmp",NULL);
 	
-	pared= load_bitmap("paredd.bmp",NULL);
+	pared= load_bitmap("disp2.bmp",NULL);
 
 	set_window_title("1945");
 	
 	BITMAP *disparr;
 	
-	disparr = load_bitmap("disp2.bmp",NULL);
-		
+	disparr = load_bitmap("lal.bmp",NULL);
+			
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{	
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
-		
+				
 		//avion
 		blit(buffer,screen,0,0,0,0,700,600);
 		
 		blit(avion,screen,0,0,x,y,avion->w,avion->h);
-		
-		dibujar();
-		
+
 		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);		
+		
+		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 		
 		if(key[KEY_SPACE])
 		{
@@ -179,10 +181,8 @@ int main()
 			blit(buffer,screen,0,0,0,0,700,600);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
-		rest(30);
+		rest(10);
 	}
-	destroy_bitmap(buffer);
-	destroy_bitmap(avion);
 	deinit();
 	
 	return 0;
