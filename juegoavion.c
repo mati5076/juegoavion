@@ -85,16 +85,8 @@ void dibujar()
 int main()
 {
 	init();
-	int x=200;
-	int y=450;
-	int x1=0;
-	int y1=155;
-	int x2=200;
-	int y2=450;
-	int mov=200;
-	int mos=450;
-	int der=120;
-	int izq=220;
+	int x=200,y=450,x1=0,y1=155,x2=200,y2=450,der=200,izq=450;
+	
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
@@ -133,6 +125,12 @@ int main()
 		
 		blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		
+		if(der = x)
+		{
+			der+=50;
+			blit(buffer,screen,0,0,0,0,440,680);
+			blit(enemigo,screen,0,0,der,izq,enemigo->w,enemigo->h);
+		}
 		if(key[KEY_SPACE])
 		{
 			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
@@ -142,7 +140,7 @@ int main()
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
 			x+=50;//hace que se mueva hacia la derecha
-			blit(buffer,screen,0,0,0,0,440,580);
+			blit(buffer,screen,0,0,0,0,440,680);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_LEFT])
