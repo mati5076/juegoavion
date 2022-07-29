@@ -9,6 +9,7 @@
 #include "bala.h"
 
 #define MAXCOL 15
+
 #define MAXFIL 20
 
 BITMAP *pared;
@@ -92,7 +93,8 @@ int main()
 	int y2=450;
 	int mov=200;
 	int mos=450;
-	
+	int der=120;
+	int izq=220;
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
@@ -121,14 +123,14 @@ int main()
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
-			
+		
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
 		
 		blit(avion,screen,0,0,x,y,avion->w,avion->h);
 
-		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);		
-			
+		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);
+		
 		blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		
 		if(key[KEY_SPACE])
@@ -142,8 +144,6 @@ int main()
 			x+=50;//hace que se mueva hacia la derecha
 			blit(buffer,screen,0,0,0,0,440,580);
 			blit(avion,screen,0,0,x,y,100,112);
-			
-			blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		}
 		else if(key[KEY_LEFT])
 		{
