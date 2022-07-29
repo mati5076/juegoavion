@@ -1,6 +1,6 @@
 [Project]
-FileName=juego_1945.dev
-Name=juego_1945
+FileName=programacion ii.dev
+Name=programacion ii
 Type=0
 Ver=2
 ObjFiles=
@@ -51,7 +51,7 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=avion_1945.c
+FileName=..\..\Documents\GitHub\juegoavion\juegoavion.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -69,4 +69,7 @@ Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+
+[Unit4]
+FileName=bala.h
 

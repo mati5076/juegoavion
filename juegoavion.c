@@ -116,7 +116,6 @@ int main()
 		
 	enemigo = load_bitmap("enemigo.bmp",NULL);
 	
-
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
 		blit(fondo,screen,0,0,x1,y1,440,680);
@@ -143,6 +142,8 @@ int main()
 			x+=50;//hace que se mueva hacia la derecha
 			blit(buffer,screen,0,0,0,0,440,580);
 			blit(avion,screen,0,0,x,y,100,112);
+			
+			blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		}
 		else if(key[KEY_LEFT])
 		{
