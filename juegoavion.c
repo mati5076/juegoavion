@@ -85,13 +85,14 @@ void dibujar()
 int main()
 {
 	init();
+	
 	int x=200,y=450,x1=0,y1=155,x2=200,y2=450,der=200,izq=450;
 	
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
 	BITMAP *avion;
-
+	
 	avion=load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
 	
 	BITMAP *fondo;//insertar la imagen de fondo 
@@ -103,12 +104,12 @@ int main()
 	sprite = load_bitmap("disp2.bmp",NULL);
 	
 	pared= load_bitmap("disp2.bmp",NULL);
-
-	set_window_title("1945");
 	
 	BITMAP *enemigo;
 		
 	enemigo = load_bitmap("enemigo.bmp",NULL);
+	
+	set_window_title("1945");
 	
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
