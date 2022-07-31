@@ -16,7 +16,6 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
-
 void leer()//codigo de ayuda por mi compañero francisco
 {
 	int i,j;
@@ -62,7 +61,8 @@ void dibujar()
 {
 	int i,j;
 	
-	BITMAP *pared = load_bitmap("menu.bmp",NULL);
+	BITMAP *pared = load_bitmap("disp2.bmp",NULL);
+	
 	leer();
 	
 	for(i=0;i<MAXFIL;i++)
@@ -132,7 +132,8 @@ int main()
 		if(mov = x)
 		{
 			mov+=50;
-			blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
+			blit(buffer,screen,0,0,0,0,440,680);
+			blit(enemigo,screen,0,0,mov,mos,enemigo->w,enemigo->h);
 		}
 		if(key[KEY_SPACE])
 		{
@@ -146,17 +147,15 @@ int main()
 			
 			blit(menu,buffer,0,0,0,0,menu->w,menu->h);
 		}
-		else if(key[KEY_L])
+		else if(key[KEY_1])
 		{
-			return 1;
+			return 2;
 		}
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
 			x+=50;//hace que se mueva hacia la derecha
 			blit(buffer,screen,0,0,0,0,440,580);
 			blit(avion,screen,0,0,x,y,100,112);
-			
-			blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		}
 		else if(key[KEY_LEFT])
 		{
