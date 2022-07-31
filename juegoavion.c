@@ -235,3 +235,13 @@ void deinit()
 {
 	clear_keybuf();
 }
+
+void barra_de_vida()
+{
+	float vida;
+	
+	if(vida == true)
+	{
+		vida-=0.2;
+	}
+}
