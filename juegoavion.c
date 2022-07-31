@@ -1,20 +1,10 @@
 #include <allegro.h>
-
 #include<stdio.h>
-
 #include<stdlib.h>
-
 #include<time.h>
-
 #include "bala.h"
-
 #define MAXCOL 15
-
 #define MAXFIL 20
-
-BITMAP *pared;
-
-BITMAP *buffer;
 
 void init();
 
@@ -22,17 +12,6 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
-void Menu()
-{
-	BITMAP *menu =load_bitmap("MENU.bmp",NULL);
-	
-	if(key[KEY_ENTER])
-	{
-		blit(menu,screen,0,0,0,0,440,680);
-		
-		blit(menu,buffer,0,0,0,0,menu->w,menu->h);
-	}
-}
 void leer()//codigo de ayuda por mi compañero francisco
 {
 	int i,j;
@@ -76,6 +55,7 @@ void leer()//codigo de ayuda por mi compañero francisco
 void dibujar()
 {
 	int i,j;
+	BITMAP *pared = load_bitmap("disp2.bmp",NULL);
 	
 	leer();
 	
@@ -95,35 +75,29 @@ int main()
 {
 	init();
 	
-	int x=200,y=450,x1=0,y1=155,x2=200,y2=450,der=200,izq=450;
+	int x=200,y=450,x1=0,y1=155,x2=200,y2=450,der=200,izq=450,a,b;
 	float vida = 100;
 	BITMAP *buffer = create_bitmap(440,680);
-	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
-	BITMAP *avion;
-	
-	avion=load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
-	
-	BITMAP *fondo;//insertar la imagen de fondo 
+	BITMAP *menu = load_bitmap("MENU.bmp",NULL);//menu del juego 
 
-	fondo=load_bitmap("azul.bml.bmp",NULL); 
+	BITMAP *avion =load_bitmap("IMG/ask.bmp",NULL); //insertar la imagen del avion del usuario
 	
-	BITMAP *sprite;//insertar las balas para el jugador 
+	BITMAP *fondo =load_bitmap("azul.bml.bmp",NULL); // fondo del juego
 	
-	sprite = load_bitmap("disp2.bmp",NULL);
+	BITMAP *sprite = load_bitmap("disp2.bmp",NULL); // balas que ocupara el jugador
 	
-	pared= load_bitmap("disp2.bmp",NULL);
+	BITMAP *pared = load_bitmap("disp2.bmp",NULL);//pared con la que el usuario interactuara
 	
-	BITMAP *enemigo;
-		
-	enemigo = load_bitmap("enemigo.bmp",NULL);
+	BITMAP *enemigo = load_bitmap("enemigo.bmp",NULL);//enemigo
 	
-	set_window_title("1945");
+	set_window_title("1945");//se le da nombre a la ventana del juego
 	
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
-		Menu();
 		
+		blit(menu,screen,0,0,0,0,440,680);//menu donde saldra la opcion de entrar al juego o salir de este 
+	
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
@@ -144,6 +118,16 @@ int main()
 			der+=50;
 			blit(buffer,screen,0,0,0,0,440,680);
 			blit(enemigo,screen,0,0,der,izq,enemigo->w,enemigo->h);
+		}
+		if(key[KEY_ENTER])
+		{
+			blit(menu,screen,0,0,0,0,440,680);
+			
+			blit(fondo,screen,0,0,x1,y1,440,680);
+		}
+		else if(key[KEY_RETURN])
+		{
+			break;
 		}
 		if(key[KEY_SPACE])
 		{
@@ -235,11 +219,3 @@ void deinit()
 	clear_keybuf();
 }
 
-void barra_de_vida()
-{
-	float vida;
-	if(vida == 100)
-	{
-		rectfil();
-	}
-}
