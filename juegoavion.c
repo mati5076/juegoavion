@@ -22,7 +22,17 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
-
+void Menu()
+{
+	BITMAP *menu =load_bitmap("MENU.bmp",NULL);
+	
+	if(key[KEY_ENTER])
+	{
+		blit(menu,screen,0,0,0,0,440,680);
+		
+		blit(menu,buffer,0,0,0,0,menu->w,menu->h);
+	}
+}
 void leer()//codigo de ayuda por mi compañero francisco
 {
 	int i,j;
@@ -35,7 +45,6 @@ void leer()//codigo de ayuda por mi compañero francisco
 		printf("error al abrir el archivo");
 		system ("pause");
 	}
-
 	i=0;
 	j=0;
 	while(!feof (archivo) )
@@ -113,6 +122,9 @@ int main()
 	
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
+		
+		Menu();
+		
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
@@ -120,10 +132,12 @@ int main()
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
 		
-		blit(avion,screen,0,0,x,y,avion->w,avion->h);
+		blit(avion,buffer,0,0,x,y,avion->w,avion->h);//deja el fondo estatico y deja sobre poner el personaje 
 
 		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);
 		
+		blit(buffer,screen,0,0,0,0,440,680);
+
 		blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		
 		if(der = x)
