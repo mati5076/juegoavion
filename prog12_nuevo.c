@@ -6,9 +6,8 @@
 
 #include<time.h>
 
-#include "bala.h"
-
 #define MAXCOL 15
+
 #define MAXFIL 20
 
 void init();
@@ -64,7 +63,6 @@ void dibujar()
 	int i,j;
 	
 	BITMAP *pared = load_bitmap("menu.bmp",NULL);
-		
 	leer();
 	
 	for(i=0;i<MAXFIL;i++)
@@ -82,12 +80,17 @@ void dibujar()
 int main()
 {
 	init();
-	int x=200 ,y=450,x1=0,y1=155,x2=200,y2=450,mov=200,mos=450;
+	int x=200;
+	int y=450;
+	int x1=0;
+	int y1=155;
+	int x2=200;
+	int y2=450;
+	int mov=200;
+	int mos=450;
 	
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
-	
-	BITMAP  *menu = load_bitmap("menu.bmp",NULL);
 	
 	BITMAP *avion;
 
@@ -105,7 +108,9 @@ int main()
 
 	set_window_title("1945");
 	
-	BITMAP *enemigo= load_bitmap("enemigo.bmp",NULL);
+	BITMAP *enemigo;
+		
+	enemigo = load_bitmap("enemigo.bmp",NULL);
 	
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
@@ -122,24 +127,11 @@ int main()
 			
 		blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		
-		
-		if(mov = x)
-		{
-			mov+=50;
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(enemigo,screen,0,0,mov,mos,enemigo->w,enemigo->h);
-		}
 		if(key[KEY_SPACE])
 		{
 			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
 			blit(buffer,screen,0,0,0,0,440,680);
 			blit(sprite,screen,0,0,x2,y2,sprite->w,sprite->h);
-		}
-		if(key[KEY_ENTER])
-		{
-			blit(menu,screen,0,0,0,0,440,680);//menu donde saldra la opcion de entrar al juego o salir de este 
-	
-			blit(fondo,screen,0,0,x1,y1,440,680);
 		}
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
@@ -191,10 +183,6 @@ int main()
 			y+=50;
 			blit(buffer,screen,0,0,0,0,440,680);
 			blit(avion,screen,0,0,x,y,100,112);
-		}
-		else if(key[KEY_RETURN])
-		{
-			break;
 		}
 		
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
