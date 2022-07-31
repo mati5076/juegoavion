@@ -1,8 +1,13 @@
 #include <allegro.h>
+
 #include<stdio.h>
+
 #include<stdlib.h>
+
 #include<time.h>
+
 #include "bala.h"
+
 #define MAXCOL 15
 #define MAXFIL 20
 
@@ -11,6 +16,7 @@ void init();
 void deinit();
 
 char escena[MAXFIL][MAXCOL];
+
 
 void leer()//codigo de ayuda por mi compañero francisco
 {
@@ -24,6 +30,7 @@ void leer()//codigo de ayuda por mi compañero francisco
 		printf("error al abrir el archivo");
 		system ("pause");
 	}
+
 	i=0;
 	j=0;
 	while(!feof (archivo) )
@@ -55,8 +62,9 @@ void leer()//codigo de ayuda por mi compañero francisco
 void dibujar()
 {
 	int i,j;
-	BITMAP *pared = load_bitmap("disp2.bmp",NULL);
 	
+	BITMAP *pared = load_bitmap("menu.bmp",NULL);
+		
 	leer();
 	
 	for(i=0;i<MAXFIL;i++)
@@ -74,60 +82,52 @@ void dibujar()
 int main()
 {
 	init();
+	int x=200 ,y=450,x1=0,y1=155,x2=200,y2=450,mov=200,mos=450;
 	
-	int x=200,y=450,x1=0,y1=155,x2=200,y2=450,der=200,izq=450,a,b;
-	float vida = 100;
 	BITMAP *buffer = create_bitmap(440,680);
+	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
-	BITMAP *menu = load_bitmap("MENU.bmp",NULL);//menu del juego 
+	BITMAP  *menu = load_bitmap("menu.bmp",NULL);
+	
+	BITMAP *avion;
 
-	BITMAP *avion =load_bitmap("IMG/ask.bmp",NULL); //insertar la imagen del avion del usuario
+	avion=load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
 	
-	BITMAP *fondo =load_bitmap("azul.bml.bmp",NULL); // fondo del juego
+	BITMAP *fondo;//insertar la imagen de fondo 
+
+	fondo=load_bitmap("azul.bml.bmp",NULL); 
 	
-	BITMAP *sprite = load_bitmap("disp2.bmp",NULL); // balas que ocupara el jugador
+	BITMAP *sprite;//insertar las balas para el jugador 
 	
-	BITMAP *pared = load_bitmap("disp2.bmp",NULL);//pared con la que el usuario interactuara
+	sprite = load_bitmap("disp2.bmp",NULL);
 	
-	BITMAP *enemigo = load_bitmap("enemigo.bmp",NULL);//enemigo
+	BITMAP *pared= load_bitmap("disp2.bmp",NULL);
+
+	set_window_title("1945");
 	
-	set_window_title("1945");//se le da nombre a la ventana del juego
+	BITMAP *enemigo= load_bitmap("enemigo.bmp",NULL);
 	
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
-		
-		blit(menu,screen,0,0,0,0,440,680);//menu donde saldra la opcion de entrar al juego o salir de este 
-	
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
-		
+			
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
 		
-		blit(avion,buffer,0,0,x,y,avion->w,avion->h);//deja el fondo estatico y deja sobre poner el personaje 
+		blit(avion,screen,0,0,x,y,avion->w,avion->h);
 
-		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);
-		
-		blit(buffer,screen,0,0,0,0,440,680);
-
+		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);		
+			
 		blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		
-		if(der = x)
+		
+		if(mov = x)
 		{
-			der+=50;
+			mov+=50;
 			blit(buffer,screen,0,0,0,0,440,680);
-			blit(enemigo,screen,0,0,der,izq,enemigo->w,enemigo->h);
-		}
-		if(key[KEY_ENTER])
-		{
-			blit(menu,screen,0,0,0,0,440,680);
-			
-			blit(fondo,screen,0,0,x1,y1,440,680);
-		}
-		else if(key[KEY_RETURN])
-		{
-			break;
+			blit(enemigo,screen,0,0,mov,mos,enemigo->w,enemigo->h);
 		}
 		if(key[KEY_SPACE])
 		{
@@ -135,11 +135,19 @@ int main()
 			blit(buffer,screen,0,0,0,0,440,680);
 			blit(sprite,screen,0,0,x2,y2,sprite->w,sprite->h);
 		}
+		if(key[KEY_ENTER])
+		{
+			blit(menu,screen,0,0,0,0,440,680);//menu donde saldra la opcion de entrar al juego o salir de este 
+	
+			blit(fondo,screen,0,0,x1,y1,440,680);
+		}
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
 			x+=50;//hace que se mueva hacia la derecha
-			blit(buffer,screen,0,0,0,0,440,680);
+			blit(buffer,screen,0,0,0,0,440,580);
 			blit(avion,screen,0,0,x,y,100,112);
+			
+			blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		}
 		else if(key[KEY_LEFT])
 		{
@@ -184,6 +192,10 @@ int main()
 			blit(buffer,screen,0,0,0,0,440,680);
 			blit(avion,screen,0,0,x,y,100,112);
 		}
+		else if(key[KEY_RETURN])
+		{
+			break;
+		}
 		
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 
@@ -218,4 +230,3 @@ void deinit()
 {
 	clear_keybuf();
 }
-
