@@ -92,28 +92,30 @@ int main()
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
-	BITMAP *avion;
-
-	avion=load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
+	BITMAP *menu = load_bitmap("menu.bmp",NULL);
 	
-	BITMAP *fondo;//insertar la imagen de fondo 
-
-	fondo=load_bitmap("azul.bml.bmp",NULL); 
+	BITMAP *avion = load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
+	
+	BITMAP *fondo = load_bitmap("azul.bml.bmp",NULL); 
 	
 	BITMAP *sprite;//insertar las balas para el jugador 
 	
 	sprite = load_bitmap("disp2.bmp",NULL);
 	
 	BITMAP *pared= load_bitmap("disp2.bmp",NULL);
+	
+	BITMAP *enemigo = load_bitmap("enemigo.bmp",NULL);
 
-	set_window_title("1945");
+	set_window_title("1945");//le da nombre a la ventana 
 	
-	BITMAP *enemigo;
-		
-	enemigo = load_bitmap("enemigo.bmp",NULL);
-	
-	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
+	while (!key[KEY_ESC]) 
 	{
+		blit(menu,screen,0,0,0,0,440,680);//menu donde saldra la opcion de entrar al juego o salir de este 
+	
+		blit(menu,buffer,0,0,0,0,menu->w,menu->h);
+		
+		//////////////////////////////////////////////////////////////////
+		
 		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
@@ -127,11 +129,26 @@ int main()
 			
 		blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
 		
+		if(mov = x)
+		{
+			mov+=50;
+			blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
+		}
 		if(key[KEY_SPACE])
 		{
 			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
 			blit(buffer,screen,0,0,0,0,440,680);
 			blit(sprite,screen,0,0,x2,y2,sprite->w,sprite->h);
+		}
+		if(key[KEY_ENTER])
+		{
+			blit(menu,screen,0,0,0,0,440,680);//menu donde saldra la opcion de entrar al juego o salir de este 
+			
+			blit(menu,buffer,0,0,0,0,menu->w,menu->h);
+		}
+		else if(key[KEY_L])
+		{
+			return 1;
 		}
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
