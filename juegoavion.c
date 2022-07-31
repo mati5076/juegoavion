@@ -96,7 +96,7 @@ int main()
 	init();
 	
 	int x=200,y=450,x1=0,y1=155,x2=200,y2=450,der=200,izq=450;
-	
+	float vida = 100;
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
@@ -122,7 +122,6 @@ int main()
 	
 	while (!key[KEY_ESC]) // ciclo que ayuda amover el avion y deja la imagen de fondo 
 	{
-		
 		Menu();
 		
 		blit(fondo,screen,0,0,x1,y1,440,680);
@@ -239,9 +238,8 @@ void deinit()
 void barra_de_vida()
 {
 	float vida;
-	
-	if(vida == true)
+	if(vida == 100)
 	{
-		vida-=0.2;
+		rectfil();
 	}
 }
