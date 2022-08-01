@@ -113,7 +113,6 @@ int main()
 		blit(menu,screen,0,0,0,0,440,680);//menu donde saldra la opcion de entrar al juego o salir de este 
 	
 		blit(menu,buffer,0,0,0,0,menu->w,menu->h);
-		
 		//////////////////////////////////////////////////////////////////
 		
 		blit(fondo,screen,0,0,x1,y1,440,680);
