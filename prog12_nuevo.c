@@ -17,11 +17,11 @@ void deinit();
 char escena[MAXFIL][MAXCOL];
 
 struct Avion{
-	int mover_der [100];
-	int izq_mover [100];
-	int abajo [100];
-	int arriba [100];
-
+	
+	int mover_der;
+	
+	int mover_arriba;
+	
 }jugador1;
 
 void leer()//codigo de ayuda por mi compañero francisco
@@ -94,8 +94,16 @@ int main()
 	int y1=155;
 	int x2=200;
 	int y2=450;
-	int mov=250;
-	int mos=450;
+	int mov,mos;
+	jugador1.mover_der=200;
+	
+	jugador1.mover_arriba=450;
+	
+	srand(time(0));
+	
+	mov=rand()%150;
+	
+	mos=rand()%160;
 	
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
@@ -127,78 +135,69 @@ int main()
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
 		
-		blit(avion,screen,0,0,jugador1.mover_der[100],jugador1.izq_mover[100],avion->w,avion->h);
-
-		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);		
-			
-		blit(enemigo,screen,0,0,0,0,enemigo->w,enemigo->h);
+		blit(avion,screen,0,0,jugador1.mover_der,jugador1.mover_arriba,avion->w,avion->h);
 		
-		if(key[KEY_X])
+		//enemigo 
+		blit(enemigo,screen,0,0,mov,mos,enemigo->w,enemigo->h);
+		
+		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);				
+		if(mov != jugador1.mover_der && mov < jugador1.mover_der)
 		{
-			mov+=50;
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(enemigo,screen,0,0,mov,mos,enemigo->w,enemigo->h);
+			mov+=130;
+		}
+		else if(mov != jugador1.mover_der && mov > jugador1.mover_der)
+		{
+			mov-=130;
+		}
+		else if(mos != jugador1.mover_arriba && mos < jugador1.mover_arriba)
+		{
+			mos+=140;
+		}
+		else if(mos != jugador1.mover_arriba && mos > jugador1.mover_arriba)
+		{
+			mos-=140;
 		}
 		if(key[KEY_SPACE])
 		{
 			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(sprite,screen,0,0,x2,y2,sprite->w,sprite->h);
 		}
-	
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
-			jugador1.mover_der[100]+=50;//hace que se mueva hacia la derecha
-			blit(buffer,screen,0,0,0,0,440,580);
-			blit(avion,screen,0,0,jugador1.mover_der[100],jugador1.izq_mover[100],100,112);
+			jugador1.mover_der+=50;//hace que se mueva hacia la derecha
 		}
 		else if(key[KEY_LEFT])
 		{
-			jugador1.izq_mover[100]-=50;//hace que se mueva hacia la izquierda
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(avion,screen,0,0,jugador1.mover_der[100],jugador1.izq_mover[100],100,112);
+			jugador1.mover_der-=50;//hace que se mueva hacia la izquierda
 		}
 		else if(key[KEY_UP])
 		{
-			jugador1.arriba[100]-=50;//hace que se mueva hacia arriba , el signo menos es porque allegro tiene invertido las direcciones de arriba y abajo 
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(avion,screen,0,0,jugador1.mover_der,jugador1.izq_mover,100,112);
+			jugador1.mover_arriba-=50;//hace que se mueva hacia arriba , el signo menos es porque allegro tiene invertido las direcciones de arriba y abajo 
 		}
 		else if(key[KEY_DOWN])
 		{
-			jugador1.abajo[100]+=50;//se mueve hacia abajo
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(avion,screen,0,0,jugador1.mover_der,jugador1.izq_mover,100,112);
+			jugador1.mover_arriba+=50;
 		}
 		// "botones de reserva"
 		if(key[KEY_D])
 		{
 			x+=50;
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_A])
 		{
 			x-=50;
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_W])
 		{
 			y-=50;
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(avion,screen,0,0,x,y,100,112);
 		}
 		else if(key[KEY_S])
 		{
 			y+=50;
-			blit(buffer,screen,0,0,0,0,440,680);
-			blit(avion,screen,0,0,x,y,100,112);
 		}
 		
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 
-		rest(10);
+		rest(40);
 	}
 	deinit();
 	
