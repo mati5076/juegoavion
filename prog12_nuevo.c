@@ -24,6 +24,12 @@ struct Avion{
 	
 }jugador1;
 
+struct Enemigo{
+	int seguir_derech;
+	
+	int seguir_arriba;
+}jug2;
+
 void leer()//codigo de ayuda por mi compañero francisco
 {
 	int i,j;
@@ -95,16 +101,18 @@ int main()
 	int x2=200;
 	int y2=450;
 	int mov,mos;
+	//avion 
 	jugador1.mover_der=200;
 	
 	jugador1.mover_arriba=450;
 	
+	//enemigo 
 	srand(time(0));
 	
-	mov=rand()%150;
+	jug2.seguir_derech=rand()%150;
 	
-	mos=rand()%160;
-	
+	jug2.seguir_arriba=rand()%160;
+
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
@@ -138,24 +146,24 @@ int main()
 		blit(avion,screen,0,0,jugador1.mover_der,jugador1.mover_arriba,avion->w,avion->h);
 		
 		//enemigo 
-		blit(enemigo,screen,0,0,mov,mos,enemigo->w,enemigo->h);
+		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
 		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);				
-		if(mov != jugador1.mover_der && mov < jugador1.mover_der)
+		if(jug2.seguir_derech != jugador1.mover_der && jug2.seguir_derech < jugador1.mover_der)
 		{
-			mov+=130;
+			jug2.seguir_derech+=130;
 		}
-		else if(mov != jugador1.mover_der && mov > jugador1.mover_der)
+		else if(jug2.seguir_derech != jugador1.mover_der && jug2.seguir_derech > jugador1.mover_der)
 		{
-			mov-=130;
+			jug2.seguir_derech-=130;
 		}
-		else if(mos != jugador1.mover_arriba && mos < jugador1.mover_arriba)
+		if(jug2.seguir_arriba != jugador1.mover_arriba && jug2.seguir_arriba < jugador1.mover_arriba)
 		{
-			mos+=140;
+			jug2.seguir_arriba+=140;
 		}
-		else if(mos != jugador1.mover_arriba && mos > jugador1.mover_arriba)
+		else if(jug2.seguir_arriba != jugador1.mover_arriba && jug2.seguir_arriba > jugador1.mover_arriba)
 		{
-			mos-=140;
+			jug2.seguir_arriba-=140;
 		}
 		if(key[KEY_SPACE])
 		{
@@ -231,6 +239,11 @@ void deinit()
 
 void vida()
 {
-	int combustible=100;
+	bool combustible=100;
 	
+	if(combustible = true)
+	{
+		combustible-=10;
+	}
+	else combustible = false;
 }
