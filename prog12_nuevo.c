@@ -86,7 +86,7 @@ int main()
 	int y1=155;
 	int x2=200;
 	int y2=450;
-	int mov=200;
+	int mov=205;
 	int mos=450;
 	
 	BITMAP *buffer = create_bitmap(440,680);
