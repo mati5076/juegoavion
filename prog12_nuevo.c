@@ -16,6 +16,14 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
+struct Avion{
+	int mover_der[100];
+	int izq_mover[100];
+	int abajo[100];
+	int arriba[100];
+
+}jugador1;
+
 void leer()//codigo de ayuda por mi compañero francisco
 {
 	int i,j;
@@ -122,7 +130,7 @@ int main()
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
 		
-		blit(avion,screen,0,0,x,y,avion->w,avion->h);
+		blit(avion,screen,0,0,jugador1.mover_der,jugador1.izq_mover,avion->w,avion->h);
 
 		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);		
 			
@@ -152,9 +160,9 @@ int main()
 		}
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
-			x+=50;//hace que se mueva hacia la derecha
+			jugador1.mover_der+=50;//hace que se mueva hacia la derecha
 			blit(buffer,screen,0,0,0,0,440,580);
-			blit(avion,screen,0,0,x,y,100,112);
+			blit(avion,screen,0,0,juagor1.mover_der,jugador1.izq_mover,100,112);
 		}
 		else if(key[KEY_LEFT])
 		{
@@ -232,4 +240,10 @@ void init()
 void deinit() 
 {
 	clear_keybuf();
+}
+
+void vida()
+{
+	int combustible=100;
+	
 }
