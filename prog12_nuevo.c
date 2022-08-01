@@ -237,13 +237,3 @@ void deinit()
 	clear_keybuf();
 }
 
-void vida()
-{
-	bool combustible=100;
-	
-	if(combustible = true)
-	{
-		combustible-=10;
-	}
-	else combustible = false;
-}
