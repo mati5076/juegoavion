@@ -141,17 +141,17 @@ int main()
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
-	BITMAP *menu = load_bitmap("menu.bmp",NULL);
+	BITMAP *menu = load_bitmap("IMG/menu.bmp",NULL);
 	
 	BITMAP *avion = load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
 	
 	BITMAP *fondo = load_bitmap("IMG/azul.bml.bmp",NULL); 
 	
-	BITMAP *bala = load_bitmap("disp2.bmp",NULL);
+	BITMAP *bala = load_bitmap("IMG/disp2.bmp",NULL);
 	
-	BITMAP *pared= load_bitmap("disp2.bmp",NULL);
+	BITMAP *pared= load_bitmap("IMG/disp2.bmp",NULL);
 	
-	BITMAP *enemigo = load_bitmap("enemigo.bmp",NULL);
+	BITMAP *enemigo = load_bitmap("IMG/enemigo.bmp",NULL);
 
 	set_window_title("1945");//le da nombre a la ventana 
 	
@@ -193,37 +193,33 @@ int main()
 		{
 			jugador1.disparo.y-=60;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala
 		}
-		if(jugador1.disparo.y < 0 )
+		if(jugador1.disparo.y < 0-100 )
 		{
 			jugador1.disparo.bandera=0;
-			jugador1.disparo.y=450;
+			jugador1.disparo.y=jugador1.mover_arriba;
 		}
 		if(key[KEY_SPACE])
 		{
 			jugador1.disparo.bandera = 1;
 		}
-		if(jugador1.disparo.x = jugador1.mover_der)
-		{
-			jugador1.disparo.x -=20;
-		}
-		else if(jugador1.disparo.y = jugador1.mover_arriba)
-		{
-			jugador1.disparo.y +=20;
-		}
 		if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
+			jugador1.disparo.x+=50;;
 			jugador1.mover_der+=50;//hace que se mueva hacia la derecha
 		}
 		else if(key[KEY_LEFT])
 		{
+			jugador1.disparo.x-=50;
 			jugador1.mover_der-=50;//hace que se mueva hacia la izquierda
 		}
 		else if(key[KEY_UP])
 		{
+			jugador1.disparo.y-=50;
 			jugador1.mover_arriba-=50;//hace que se mueva hacia arriba , el signo menos es porque allegro tiene invertido las direcciones de arriba y abajo 
 		}
 		else if(key[KEY_DOWN])
 		{
+			jugador1.disparo.y+=50;
 			jugador1.mover_arriba+=50;
 		}
 		// "botones de reserva"
