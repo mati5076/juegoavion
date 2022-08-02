@@ -188,19 +188,19 @@ int main()
 		// "botones de reserva"
 		if(key[KEY_D])
 		{
-			x+=50;
+			jugador1.mover_der+=50;
 		}
 		else if(key[KEY_A])
 		{
-			x-=50;
+			jugador1.mover_der-=50;
 		}
 		else if(key[KEY_W])
 		{
-			y-=50;
+			jugador1.mover_arriba-=50;
 		}
 		else if(key[KEY_S])
 		{
-			y+=50;
+			jugador1.mover_arriba+=50;
 		}
 		
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
@@ -236,4 +236,3 @@ void deinit()
 {
 	clear_keybuf();
 }
-
