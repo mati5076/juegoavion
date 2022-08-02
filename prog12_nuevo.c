@@ -16,12 +16,24 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
-struct Avion{
+struct bala
+{
+	int x;
 	
+	int y;
+	
+	int bandera;
+};
+
+struct Avion{
+
+	struct bala  disparo;
+
 	int mover_der;
 	
 	int mover_arriba;
 	
+
 }jugador1;
 
 struct Enemigo{
@@ -33,12 +45,6 @@ struct Enemigo{
 	
 	int size_imgy;
 }jug2;
-
-struct disparo{
-	int disparo_x;
-	
-	int disparo_y;
-}Disparo1;
 
 void leer()//codigo de ayuda por mi compañero francisco
 {
@@ -104,23 +110,23 @@ void dibujar()
 int main()
 {
 	init();
-	int x=200;
-	int y=450;
+	jugador1.disparo.x=200;
+	jugador1.disparo.y=450;
 	int x1=0;
 	int y1=155;
 	int x2=200;
 	int y2=450;
 	int mov,mos;
+	int posicion=680;
 	//avion 
 	jugador1.mover_der=200;
 	
 	jugador1.mover_arriba=450;
 	
 	//bala 
-	Disparo1.disparo_x=200;
-	
-	Disparo1.disparo_y=450;
-	
+	jugador1.disparo.x=200;	
+	jugador1.disparo.y=450;
+		
 	//enemigo 
 	srand(time(0));
 	
@@ -149,26 +155,23 @@ int main()
 
 	set_window_title("1945");//le da nombre a la ventana 
 	
+	jugador1.disparo.bandera=0;
+	
 	while (!key[KEY_ESC]) 
 	{
 		//////////////////////////////////////////////////////////////////
 		
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
-			
+		
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
-		
 		blit(avion,screen,0,0,jugador1.mover_der,jugador1.mover_arriba,avion->w,avion->h);
-		
-		
-		blit(bala,screen,0,0,Disparo1.disparo_x,Disparo1.disparo_y,bala->w,bala->h);
-		
+						
 		//enemigo 
-		
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
-		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);				
+		blit(bala,screen,0,0,jugador1.disparo.x,jugador1.disparo.y,bala->w,bala->h);	
 		
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
@@ -186,11 +189,28 @@ int main()
 		{
 			jug2.seguir_arriba-=40;
 		}
+		if(jugador1.disparo.bandera == 1 )
+		{
+			jugador1.disparo.y-=60;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala
+		}
+		if(jugador1.disparo.y < 0 )
+		{
+			jugador1.disparo.bandera=0;
+			jugador1.disparo.y=450;
+		}
 		if(key[KEY_SPACE])
 		{
-			Disparo1.disparo_y-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
+			jugador1.disparo.bandera = 1;
 		}
-		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
+		if(jugador1.disparo.x = jugador1.mover_der)
+		{
+			jugador1.disparo.x -=20;
+		}
+		else if(jugador1.disparo.y = jugador1.mover_arriba)
+		{
+			jugador1.disparo.y +=20;
+		}
+		if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
 			jugador1.mover_der+=50;//hace que se mueva hacia la derecha
 		}
@@ -224,7 +244,7 @@ int main()
 			jugador1.mover_arriba+=50;
 		}
 		
-		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
+		//dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 
 		rest(40);
 	}
