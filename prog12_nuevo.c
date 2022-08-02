@@ -28,7 +28,17 @@ struct Enemigo{
 	int seguir_derech;
 	
 	int seguir_arriba;
+	
+	int size_imgx;
+	
+	int size_imgy;
 }jug2;
+
+struct disparo{
+	int disparo_x;
+	
+	int disparo_y;
+}Disparo1;
 
 void leer()//codigo de ayuda por mi compañero francisco
 {
@@ -106,13 +116,22 @@ int main()
 	
 	jugador1.mover_arriba=450;
 	
+	//bala 
+	Disparo1.disparo_x=200;
+	
+	Disparo1.disparo_y=450;
+	
 	//enemigo 
 	srand(time(0));
 	
 	jug2.seguir_derech=rand()%300;
 	
 	jug2.seguir_arriba=rand()%460;
-
+	
+	jug2.size_imgx=150;
+	
+	jug2.size_imgy=150;
+	
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
 	
@@ -120,11 +139,9 @@ int main()
 	
 	BITMAP *avion = load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
 	
-	BITMAP *fondo = load_bitmap("azul.bml.bmp",NULL); 
+	BITMAP *fondo = load_bitmap("IMG/azul.bml.bmp",NULL); 
 	
-	BITMAP *sprite;//insertar las balas para el jugador 
-	
-	sprite = load_bitmap("disp2.bmp",NULL);
+	BITMAP *bala = load_bitmap("disp2.bmp",NULL);
 	
 	BITMAP *pared= load_bitmap("disp2.bmp",NULL);
 	
@@ -136,7 +153,6 @@ int main()
 	{
 		//////////////////////////////////////////////////////////////////
 		
-		blit(fondo,screen,0,0,x1,y1,440,680);
 		
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
 			
@@ -145,29 +161,34 @@ int main()
 		
 		blit(avion,screen,0,0,jugador1.mover_der,jugador1.mover_arriba,avion->w,avion->h);
 		
+		
+		blit(bala,screen,0,0,Disparo1.disparo_x,Disparo1.disparo_y,bala->w,bala->h);
+		
 		//enemigo 
+		
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
 		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);				
-		if(jug2.seguir_derech != jugador1.mover_der && jug2.seguir_derech < jugador1.mover_der)
+		
+		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
-			jug2.seguir_derech+=20;
+			jug2.seguir_derech+=40;
 		}
-		else if(jug2.seguir_derech != jugador1.mover_der && jug2.seguir_derech > jugador1.mover_der)
+		if(jug2.seguir_derech > jugador1.mover_der-jug2.size_imgx)
 		{
-			jug2.seguir_derech-=20;
+			jug2.seguir_derech-=40;
 		}
-		if(jug2.seguir_arriba != jugador1.mover_arriba && jug2.seguir_arriba < jugador1.mover_arriba)
+		if(jug2.seguir_arriba < jugador1.mover_arriba+jug2.size_imgy)
 		{
-			jug2.seguir_arriba+=20;
-		}
-		else if(jug2.seguir_arriba != jugador1.mover_arriba && jug2.seguir_arriba > jugador1.mover_arriba)
+			jug2.seguir_arriba+=40;
+		}	
+		if(jug2.seguir_arriba > jugador1.mover_arriba-jug2.size_imgy)
 		{
-			jug2.seguir_arriba-=20;
+			jug2.seguir_arriba-=40;
 		}
 		if(key[KEY_SPACE])
 		{
-			y2-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
+			Disparo1.disparo_y-=6;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala 
 		}
 		else if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
