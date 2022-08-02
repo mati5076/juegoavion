@@ -109,9 +109,9 @@ int main()
 	//enemigo 
 	srand(time(0));
 	
-	jug2.seguir_derech=rand()%150;
+	jug2.seguir_derech=rand()%300;
 	
-	jug2.seguir_arriba=rand()%160;
+	jug2.seguir_arriba=rand()%460;
 
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
@@ -151,19 +151,19 @@ int main()
 		//blit(disparr,fondo,0,0,x1,y1,disparr->w,disparr->h);				
 		if(jug2.seguir_derech != jugador1.mover_der && jug2.seguir_derech < jugador1.mover_der)
 		{
-			jug2.seguir_derech+=130;
+			jug2.seguir_derech+=20;
 		}
 		else if(jug2.seguir_derech != jugador1.mover_der && jug2.seguir_derech > jugador1.mover_der)
 		{
-			jug2.seguir_derech-=130;
+			jug2.seguir_derech-=20;
 		}
 		if(jug2.seguir_arriba != jugador1.mover_arriba && jug2.seguir_arriba < jugador1.mover_arriba)
 		{
-			jug2.seguir_arriba+=140;
+			jug2.seguir_arriba+=20;
 		}
 		else if(jug2.seguir_arriba != jugador1.mover_arriba && jug2.seguir_arriba > jugador1.mover_arriba)
 		{
-			jug2.seguir_arriba-=140;
+			jug2.seguir_arriba-=20;
 		}
 		if(key[KEY_SPACE])
 		{
