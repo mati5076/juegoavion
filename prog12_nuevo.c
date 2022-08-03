@@ -160,8 +160,7 @@ int main()
 	while (!key[KEY_ESC]) 
 	{
 		//////////////////////////////////////////////////////////////////
-		
-		
+				
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
 		
 		//avion
@@ -193,7 +192,7 @@ int main()
 		{
 			jugador1.disparo.y-=60;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala
 		}
-		if(jugador1.disparo.y < 0-100 )
+		if(jugador1.disparo.y < 0 )
 		{
 			jugador1.disparo.bandera=0;
 			jugador1.disparo.y=jugador1.mover_arriba;
@@ -204,7 +203,7 @@ int main()
 		}
 		if(key[KEY_RIGHT])//teclas de movimiento del avion 
 		{
-			jugador1.disparo.x+=50;;
+			jugador1.disparo.x+=50;
 			jugador1.mover_der+=50;//hace que se mueva hacia la derecha
 		}
 		else if(key[KEY_LEFT])
@@ -239,9 +238,9 @@ int main()
 		{
 			jugador1.mover_arriba+=50;
 		}
-		
+			
 		//dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
-
+				
 		rest(40);
 	}
 	deinit();
