@@ -16,6 +16,11 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
+struct barra{
+	int gastar;
+	
+	int  reponer;
+};
 struct bala
 {
 	int x;
@@ -26,7 +31,9 @@ struct bala
 };
 
 struct Avion{
-
+	
+	struct barra combustible;
+	
 	struct bala  disparo;
 
 	int mover_der;
@@ -162,7 +169,7 @@ int main()
 		//////////////////////////////////////////////////////////////////
 				
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
-		
+	
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
 		blit(avion,screen,0,0,jugador1.mover_der,jugador1.mover_arriba,avion->w,avion->h);
@@ -171,7 +178,7 @@ int main()
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
 		blit(bala,screen,0,0,jugador1.disparo.x,jugador1.disparo.y,bala->w,bala->h);	
-		
+
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
 			jug2.seguir_derech+=40;
