@@ -16,11 +16,13 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
-struct barra{
+struct barra
+{
 	int gastar;
 	
 	int  reponer;
 };
+
 struct bala
 {
 	int x;
@@ -117,8 +119,6 @@ void dibujar()
 int main()
 {
 	init();
-	jugador1.disparo.x=200;
-	jugador1.disparo.y=450;
 	int x1=0;
 	int y1=155;
 	int x2=200;
@@ -130,6 +130,12 @@ int main()
 	
 	jugador1.mover_arriba=450;
 	
+	jugador1.disparo.x=200;
+	
+	jugador1.disparo.y=450;
+	// vida 
+	jugador1.combustible.gastar=100;
+
 	//bala 
 	jugador1.disparo.x=200;	
 	jugador1.disparo.y=450;
@@ -162,7 +168,7 @@ int main()
 
 	set_window_title("1945");//le da nombre a la ventana 
 	
-	jugador1.disparo.bandera=0;
+	jugador1.disparo.bandera=0;	
 	
 	while (!key[KEY_ESC]) 
 	{
@@ -179,6 +185,9 @@ int main()
 		
 		blit(bala,screen,0,0,jugador1.disparo.x,jugador1.disparo.y,bala->w,bala->h);	
 
+		textout_ex(screen,font,"Vida", 100, 20, 0x9999, 0xFFFFFF);
+		rectfill(screen,50,50,50+jugador1.combustible.gastar,55,0xFFFFFF);
+
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
 			jug2.seguir_derech+=40;
@@ -190,7 +199,7 @@ int main()
 		if(jug2.seguir_arriba < jugador1.mover_arriba+jug2.size_imgy)
 		{
 			jug2.seguir_arriba+=40;
-		}	
+		}
 		if(jug2.seguir_arriba > jugador1.mover_arriba-jug2.size_imgy)
 		{
 			jug2.seguir_arriba-=40;
@@ -228,24 +237,6 @@ int main()
 			jugador1.disparo.y+=50;
 			jugador1.mover_arriba+=50;
 		}
-		// "botones de reserva"
-		if(key[KEY_D])
-		{
-			jugador1.mover_der+=50;
-		}
-		else if(key[KEY_A])
-		{
-			jugador1.mover_der-=50;
-		}
-		else if(key[KEY_W])
-		{
-			jugador1.mover_arriba-=50;
-		}
-		else if(key[KEY_S])
-		{
-			jugador1.mover_arriba+=50;
-		}
-			
 		//dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 				
 		rest(40);
