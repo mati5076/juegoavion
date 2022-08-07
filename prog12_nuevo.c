@@ -100,7 +100,7 @@ void dibujar()
 {
 	int i,j;
 	
-	BITMAP *pared = load_bitmap("disp2.bmp",NULL);
+	BITMAP *pared = load_bitmap("IMG/disp2.bmp",NULL);
 	
 	leer();
 	
@@ -177,7 +177,7 @@ int main()
 		//////////////////////////////////////////////////////////////////
 				
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
-	
+		
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
 		blit(avion,screen,0,0,jugador1.mover_der,jugador1.mover_arriba,avion->w,avion->h);
@@ -186,15 +186,10 @@ int main()
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
 		blit(bala,screen,0,0,jugador1.disparo.x,jugador1.disparo.y,bala->w,bala->h);	
-
-		textout_ex(screen,font,"Vida", 100, 20, 0x9999, 0xFFFFFF);
-	
-		rectfill(screen,50,50,50+jugador1.combustible.gastar,55,0xFFFFFF);
 		
-		if(jugador1.combustible.reponer < 100)
-		{
-			jugador1.combustible.gastar-=1;
-		}
+		textout_ex(screen,font,"Vida", 100, 30, 0x9999, 0xFFFFFF);
+	
+		rectfill(screen,40,40,40+jugador1.combustible.gastar,45,0xFFFFFF);
 
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
@@ -221,38 +216,37 @@ int main()
 			jugador1.disparo.bandera=0;
 			jugador1.disparo.y=jugador1.mover_arriba;
 		}
-		if(key[KEY_SPACE] && jugador1.combustible.reponer < 100)
+		if(key[KEY_SPACE])
 		{
 			jugador1.disparo.bandera = 1;
-			jugador1.combustible.gastar-=1;
-
 		}
-		if(key[KEY_RIGHT] && jugador1.combustible.reponer < 100)//teclas de movimiento del avion 
+		if(key[KEY_RIGHT] && jugador1.combustible.reponer > 0)//teclas de movimiento del avion 
 		{
 			jugador1.disparo.x+=50;
 			jugador1.mover_der+=50;//hace que se mueva hacia la derecha
-			jugador1.combustible.gastar-=1;
+			jugador1.combustible.gastar-=0.2;
 		}
-		else if(key[KEY_LEFT] && jugador1.combustible.reponer < 100)
+		else if(key[KEY_LEFT] && jugador1.combustible.reponer > 0)
 		{
 			jugador1.disparo.x-=50;
 			jugador1.mover_der-=50;//hace que se mueva hacia la izquierda
-			jugador1.combustible.gastar-=1;
+			jugador1.combustible.gastar-=0.2;
 
 		}
-		else if(key[KEY_UP] && jugador1.combustible.reponer < 100)
+		else if(key[KEY_UP] && jugador1.combustible.reponer  > 0)
 		{
 			jugador1.disparo.y-=50;		
 			jugador1.mover_arriba-=50;//hace que se mueva hacia arriba , el signo menos es porque allegro tiene invertido las direcciones de arriba y abajo 
-			jugador1.combustible.gastar-=1;
+			jugador1.combustible.gastar-=0.2;
 
 		}
-		else if(key[KEY_DOWN] && jugador1.combustible.reponer < 100) 
+		else if(key[KEY_DOWN] && jugador1.combustible.reponer > 0) 
 		{
 			jugador1.disparo.y+=50;
 			jugador1.mover_arriba+=50;
-			jugador1.combustible.gastar-=1;
+			jugador1.combustible.gastar-=0.2;
 		}
+		
 		//dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 				
 		rest(40);
