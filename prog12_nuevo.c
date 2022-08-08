@@ -16,6 +16,13 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
+void menu()
+{
+	BITMAP *menu = load_bitmap("IMG/MENU.bmp",NULL);
+	
+	blit(menu,screen,0,0,0,0,menu->w,menu->h);
+	
+}
 struct barra
 {
 	int gastar;
@@ -155,9 +162,7 @@ int main()
 	
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
-	
-	BITMAP *menu = load_bitmap("IMG/menu.bmp",NULL);
-	
+		
 	BITMAP *avion = load_bitmap("IMG/ask.bmp",NULL); //insertar imagen en la ventana
 	
 	BITMAP *fondo = load_bitmap("IMG/azul.bml.bmp",NULL); 
@@ -175,6 +180,10 @@ int main()
 	while (!key[KEY_ESC]) 
 	{
 		//////////////////////////////////////////////////////////////////
+		menu();
+		
+		if(key[KEY_ENTER])
+		{
 				
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
 		
@@ -248,7 +257,11 @@ int main()
 		}
 		
 		//dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
-				
+	}
+	else if(key[KEY_Q])
+	{
+		break;
+	}
 		rest(40);
 	}
 	deinit();
