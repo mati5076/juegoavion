@@ -9,6 +9,7 @@
 #define MAXCOL 15
 
 #define MAXFIL 20
+//logre sacar el fondo , pintando les el fondo de las imagenes con el color azul ya que ese es el color de mi ventana del videojuego
 
 void init();
 
@@ -175,17 +176,17 @@ int main()
 
 	set_window_title("1945");//le da nombre a la ventana 
 	
-	if(install_sound(DIGI_AUTODETECT,MIDI_AUTODETECT,NULL))
+	if(install_sound(DIGI_AUTODETECT,MIDI_AUTODETECT,NULL))//condicional para unstallar la musica
 	{
 		allegro_message("ERROR AL INICIAR AUDIO",allegro_error);
 		return 1;
 	}
 	
-	set_volume(100,100);
+	set_volume(100,100);//volumen de la musica
 	
-	MIDI *musica_fondo = load_midi("musica/midi.mar.midi");
+	MIDI *musica_fondo = load_midi("musica/midi.mar.midi");//inserta la cancion 
 	
-	play_midi(musica_fondo,1);
+	play_midi(musica_fondo,1);//reproductor de musica
 
 	jugador1.disparo.bandera=0;		
 	
