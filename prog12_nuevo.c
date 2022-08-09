@@ -175,15 +175,27 @@ int main()
 
 	set_window_title("1945");//le da nombre a la ventana 
 	
-	jugador1.disparo.bandera=0;	
+	if(install_sound(DIGI_AUTODETECT,MIDI_AUTODETECT,NULL))
+	{
+		allegro_message("ERROR AL INICIAR AUDIO",allegro_error);
+		return 1;
+	}
+	
+	set_volume(100,50);
+	
+	MIDI *musica_fondo = load_midi("musica/midi.mar.midi");
+	
+	play_midi(musica_fondo,1);
+
+	jugador1.disparo.bandera=0;		
 	
 	while (!key[KEY_ESC]) 
 	{
 		//////////////////////////////////////////////////////////////////
-		menu();
+		//menu();
 		
-		if(key[KEY_ENTER])
-		{
+		//if(key[KEY_ENTER])
+	//	{
 				
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
 		
@@ -257,11 +269,11 @@ int main()
 		}
 		
 		//dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
-	}
-	else if(key[KEY_Q])
-	{
-		break;
-	}
+	//}
+//	else if(key[KEY_Q])
+	//{
+	//	break;
+//	}
 		rest(40);
 	}
 	deinit();
