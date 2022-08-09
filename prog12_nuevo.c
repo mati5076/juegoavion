@@ -201,7 +201,8 @@ int main()
 		
 		//avion
 		blit(buffer,screen,0,0,0,0,440,680);
-		blit(avion,screen,0,0,jugador1.mover_der,jugador1.mover_arriba,avion->w,avion->h);
+		
+		draw_sprite(screen,avion,jugador1.mover_der,jugador1.mover_arriba);
 						
 		//enemigo 
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
