@@ -181,7 +181,7 @@ int main()
 		return 1;
 	}
 	
-	set_volume(100,50);
+	set_volume(100,100);
 	
 	MIDI *musica_fondo = load_midi("musica/midi.mar.midi");
 	
