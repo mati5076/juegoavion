@@ -21,7 +21,6 @@ void menu()
 {
 	BITMAP *menu = load_bitmap("IMG/MENU.bmp",NULL);
 
-	int parpadeo=0;
 	while(!key[KEY_ENTER])
 	{
 		blit(menu,screen,0,0,0,0,menu->w,menu->h);
@@ -57,7 +56,16 @@ struct Avion{
 
 }jugador1;
 
+struct disparar
+{
+	int autmatico_x;
+	
+	int automatico_y;
+};
 struct Enemigo{
+	
+	struct disparar dispara;
+	
 	int seguir_derech;
 	
 	int seguir_arriba;
@@ -164,6 +172,10 @@ int main()
 	jug2.size_imgx=150;
 	
 	jug2.size_imgy=150;
+	//bala  del enemigo
+	jug2.dispara.autmatico_x=rand()%200;
+	jug2.dispara.automatico_y=rand()%450;
+	
 	
 	BITMAP *buffer = create_bitmap(440,680);
 	//se declara el bitmap para poder insertar la imagen del avion que usara el usuario
@@ -178,6 +190,7 @@ int main()
 	
 	BITMAP *enemigo = load_bitmap("IMG/enemigo.bmp",NULL);
 	
+	BITMAP *disparo2 = load_bitmap("IMG/enemigdisp1.bmp",NULL);
 	//nombre de la ventana 
 	set_window_title("1945");//le da nombre a la ventana 
 	
@@ -214,6 +227,8 @@ int main()
 		
 		draw_sprite(screen,bala,jugador1.disparo.x,jugador1.disparo.y);	
 		
+		draw_sprite(screen,disparo2,jug2.dispara.autmatico_x,jug2.dispara.automatico_y);	
+
 		textout_ex(screen,font,"Vida", 100, 30, 0x9999, 0xFFFFFF);
 	
 		rectfill(screen,40,40,40+jugador1.combustible.gastar,45,0xFFFFFF);
@@ -221,18 +236,30 @@ int main()
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
 			jug2.seguir_derech+=40;
+			//bala
+			jug2.dispara.autmatico_x=rand()%200;
+			jug2.dispara.automatico_y=rand()%450;
 		}
 		if(jug2.seguir_derech > jugador1.mover_der-jug2.size_imgx)
 		{
 			jug2.seguir_derech-=40;
+			//bala
+			jug2.dispara.autmatico_x=rand()%200;
+			jug2.dispara.automatico_y=rand()%450;
 		}
 		if(jug2.seguir_arriba < jugador1.mover_arriba+jug2.size_imgy)
 		{
 			jug2.seguir_arriba+=40;
+			//bala 
+			jug2.dispara.autmatico_x=rand()%200;
+			jug2.dispara.automatico_y=rand()%450;
 		}
 		if(jug2.seguir_arriba > jugador1.mover_arriba-jug2.size_imgy)
 		{
 			jug2.seguir_arriba-=40;
+			//bala
+			jug2.dispara.autmatico_x=rand()%200;
+			jug2.dispara.automatico_y=rand()%450;
 		}
 		if(jugador1.disparo.bandera == 1 )
 		{
