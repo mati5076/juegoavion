@@ -17,13 +17,25 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
+
 void menu()
 {
 	BITMAP *menu = load_bitmap("IMG/MENU.bmp",NULL);
-	
-	blit(menu,screen,0,0,0,0,menu->w,menu->h);
-	
+
+	int parpadeo=0;
+	while(!key[KEY_ENTER])
+	{
+		if(parpadeo > 80)
+		{
+			blit(menu,screen,0,0,0,0,menu->w,menu->h);
+		}
+		else blit(menu,screen,500,0,0,0,menu->w,menu->h);
+		if(++parpadeo == 150)
+			parpadeo = 0;
+	}
+	clear_to_color(screen,0x00000);
 }
+
 struct barra
 {
 	int gastar;
@@ -107,8 +119,8 @@ void leer()//codigo de ayuda por mi compañero francisco
 void dibujar()
 {
 	int i,j;
-	
-	BITMAP *pared = load_bitmap("IMG/disp2.bmp",NULL);
+
+	BITMAP *pared = load_bitmap("IMG/paredd.bmp",NULL);
 	
 	leer();
 	
@@ -173,9 +185,11 @@ int main()
 	BITMAP *pared= load_bitmap("IMG/disp2.bmp",NULL);
 	
 	BITMAP *enemigo = load_bitmap("IMG/enemigo.bmp",NULL);
-
+	
+	//nombre de la ventana 
 	set_window_title("1945");//le da nombre a la ventana 
 	
+	//musica
 	if(install_sound(DIGI_AUTODETECT,MIDI_AUTODETECT,NULL))//condicional para unstallar la musica
 	{
 		allegro_message("ERROR AL INICIAR AUDIO",allegro_error);
@@ -187,17 +201,15 @@ int main()
 	MIDI *musica_fondo = load_midi("musica/midi.mar.midi");//inserta la cancion 
 	
 	play_midi(musica_fondo,1);//reproductor de musica
-
+	
+	//bandera , se le da valores entre 0 y 1
 	jugador1.disparo.bandera=0;		
 	
+	menu();
+
 	while (!key[KEY_ESC]) 
-	{
-		//////////////////////////////////////////////////////////////////
-		//menu();
-		
-		//if(key[KEY_ENTER])
-	//	{
-				
+	{	
+	//////////////////////////////////////////////////////////////////	
 		blit(fondo,buffer,0,0,0,0,fondo->w,fondo->h);//deja el fondo estatico y deja sobre poner el personaje 
 		
 		//avion
@@ -208,12 +220,12 @@ int main()
 		//enemigo 
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
-		blit(bala,screen,0,0,jugador1.disparo.x,jugador1.disparo.y,bala->w,bala->h);	
+		draw_sprite(screen,bala,jugador1.disparo.x,jugador1.disparo.y);	
 		
 		textout_ex(screen,font,"Vida", 100, 30, 0x9999, 0xFFFFFF);
 	
 		rectfill(screen,40,40,40+jugador1.combustible.gastar,45,0xFFFFFF);
-
+				
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
 			jug2.seguir_derech+=40;
@@ -270,12 +282,8 @@ int main()
 			jugador1.combustible.gastar-=0.2;
 		}
 		
-		//dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
-	//}
-//	else if(key[KEY_Q])
-	//{
-	//	break;
-//	}
+		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
+		
 		rest(40);
 	}
 	deinit();
