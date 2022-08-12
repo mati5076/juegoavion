@@ -17,7 +17,6 @@ void deinit();
 
 char escena[MAXFIL][MAXCOL];
 
-
 void menu()
 {
 	BITMAP *menu = load_bitmap("IMG/MENU.bmp",NULL);
@@ -25,15 +24,8 @@ void menu()
 	int parpadeo=0;
 	while(!key[KEY_ENTER])
 	{
-		if(parpadeo > 80)
-		{
-			blit(menu,screen,0,0,0,0,menu->w,menu->h);
-		}
-		else blit(menu,screen,500,0,0,0,menu->w,menu->h);
-		if(++parpadeo == 150)
-			parpadeo = 0;
+		blit(menu,screen,0,0,0,0,menu->w,menu->h);
 	}
-	clear_to_color(screen,0x00000);
 }
 
 struct barra
