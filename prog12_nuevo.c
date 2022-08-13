@@ -61,6 +61,8 @@ struct disparar
 	int autmatico_x;
 	
 	int automatico_y;
+	
+	int bandera_enemigo;
 };
 struct Enemigo{
 	
@@ -210,6 +212,9 @@ int main()
 	//bandera , se le da valores entre 0 y 1
 	jugador1.disparo.bandera=0;		
 	
+	//bandera del enemigo
+	jug2.dispara.bandera_enemigo=0;
+	
 	menu();
 
 	while (!key[KEY_ESC]) 
@@ -237,29 +242,22 @@ int main()
 		{
 			jug2.seguir_derech+=40;
 			//bala
-			jug2.dispara.autmatico_x=rand()%200;
-			jug2.dispara.automatico_y=rand()%450;
+			
 		}
 		if(jug2.seguir_derech > jugador1.mover_der-jug2.size_imgx)
 		{
 			jug2.seguir_derech-=40;
 			//bala
-			jug2.dispara.autmatico_x=rand()%200;
-			jug2.dispara.automatico_y=rand()%450;
 		}
 		if(jug2.seguir_arriba < jugador1.mover_arriba+jug2.size_imgy)
 		{
 			jug2.seguir_arriba+=40;
 			//bala 
-			jug2.dispara.autmatico_x=rand()%200;
-			jug2.dispara.automatico_y=rand()%450;
 		}
 		if(jug2.seguir_arriba > jugador1.mover_arriba-jug2.size_imgy)
 		{
 			jug2.seguir_arriba-=40;
 			//bala
-			jug2.dispara.autmatico_x=rand()%200;
-			jug2.dispara.automatico_y=rand()%450;
 		}
 		if(jugador1.disparo.bandera == 1 )
 		{
@@ -267,6 +265,7 @@ int main()
 		}
 		if(jugador1.disparo.y < 0 )
 		{
+			//bala del jugador 
 			jugador1.disparo.bandera=0;
 			jugador1.disparo.y=jugador1.mover_arriba;
 		}
