@@ -161,7 +161,8 @@ int main()
 	jugador1.combustible.reponer=50;
 
 	//bala 
-	jugador1.disparo.x=200;	
+	jugador1.disparo.x=200;
+		
 	jugador1.disparo.y=450;
 		
 	//enemigo 
@@ -176,6 +177,7 @@ int main()
 	jug2.size_imgy=150;
 	//bala  del enemigo
 	jug2.dispara.autmatico_x=rand()%200;
+	
 	jug2.dispara.automatico_y=rand()%450;
 	
 	
@@ -226,8 +228,8 @@ int main()
 		blit(buffer,screen,0,0,0,0,440,680);
 		
 		draw_sprite(screen,avion,jugador1.mover_der,jugador1.mover_arriba);
-						
-		//enemigo 
+		
+		//enemigo
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
 		draw_sprite(screen,bala,jugador1.disparo.x,jugador1.disparo.y);	
@@ -240,24 +242,30 @@ int main()
 				
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
+			//bala 
+			jug2.dispara.autmatico_x+=50;
+			//movimiento
 			jug2.seguir_derech+=40;
-			//bala
-			
 		}
 		if(jug2.seguir_derech > jugador1.mover_der-jug2.size_imgx)
 		{
-			jug2.seguir_derech-=40;
 			//bala
+			jug2.dispara.autmatico_x-=50;
+			//movimiento
+			jug2.seguir_derech-=40;
 		}
 		if(jug2.seguir_arriba < jugador1.mover_arriba+jug2.size_imgy)
 		{
+			//bala
+			jug2.dispara.automatico_y-=50;
+			//movimiento
 			jug2.seguir_arriba+=40;
-			//bala 
 		}
 		if(jug2.seguir_arriba > jugador1.mover_arriba-jug2.size_imgy)
 		{
-			jug2.seguir_arriba-=40;
 			//bala
+			jug2.dispara.automatico_y+=50;
+			jug2.seguir_arriba-=40;
 		}
 		if(jugador1.disparo.bandera == 1 )
 		{
@@ -269,6 +277,7 @@ int main()
 			jugador1.disparo.bandera=0;
 			jugador1.disparo.y=jugador1.mover_arriba;
 		}
+		
 		if(key[KEY_SPACE])
 		{
 			jugador1.disparo.bandera = 1;
