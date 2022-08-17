@@ -232,10 +232,13 @@ int main()
 		//enemigo
 		blit(enemigo,screen,0,0,jug2.seguir_derech,jug2.seguir_arriba,enemigo->w,enemigo->h);
 		
+		//bala jugador
 		draw_sprite(screen,bala,jugador1.disparo.x,jugador1.disparo.y);	
 		
+		//bala enemigo
 		draw_sprite(screen,disparo2,jug2.dispara.autmatico_x,jug2.dispara.automatico_y);	
-
+		
+		//barra de vida del jugador
 		textout_ex(screen,font,"Vida", 100, 30, 0x9999, 0xFFFFFF);
 	
 		rectfill(screen,40,40,40+jugador1.combustible.gastar,45,0xFFFFFF);
@@ -257,16 +260,28 @@ int main()
 		if(jug2.seguir_arriba < jugador1.mover_arriba+jug2.size_imgy)
 		{
 			//bala
-			jug2.dispara.automatico_y-=50;
+			jug2.dispara.automatico_y+=50;
 			//movimiento
 			jug2.seguir_arriba+=40;
 		}
 		if(jug2.seguir_arriba > jugador1.mover_arriba-jug2.size_imgy)
 		{
 			//bala
-			jug2.dispara.automatico_y+=50;
+			jug2.dispara.automatico_y-=50;
 			jug2.seguir_arriba-=40;
 		}
+		if(jug2.dispara.bandera_enemigo == 1 )
+		{
+			jug2.dispara.automatico_y-=60;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala
+		}
+		if(jug2.dispara.automatico_y < 0 )
+		{
+			//bala del jugador 
+			jug2.dispara.bandera_enemigo=0;
+			jug2.dispara.automatico_y=jug2.seguir_arriba;
+		}
+		//jugador del usuario
+		
 		if(jugador1.disparo.bandera == 1 )
 		{
 			jugador1.disparo.y-=60;//esto hace que el disparo ocurra hacia adelante y a su vez hace que aparezca la bala
@@ -277,7 +292,6 @@ int main()
 			jugador1.disparo.bandera=0;
 			jugador1.disparo.y=jugador1.mover_arriba;
 		}
-		
 		if(key[KEY_SPACE])
 		{
 			jugador1.disparo.bandera = 1;
