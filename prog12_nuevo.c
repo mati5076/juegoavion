@@ -27,6 +27,14 @@ void menu()
 	}
 }
 
+void gameover()
+{
+	BITMAP *perdida = load_bitmap("IMG/gameover.bmp",NULL);
+	while(!key[KEY_Q])
+	{
+		blit(perdida,screen,0,0,0,0,perdida->w,perdida->h);
+	}
+}
 struct barra
 {
 	int gastar;
@@ -321,6 +329,11 @@ int main()
 			jugador1.disparo.y+=50;
 			jugador1.mover_arriba+=50;
 			jugador1.combustible.gastar-=0.2;
+		}
+		if(jugador1.combustible.gastar == 0)
+		{
+			gameover();
+			break;
 		}
 		
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
