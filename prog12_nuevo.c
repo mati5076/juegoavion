@@ -27,6 +27,15 @@ void menu()
 	}
 }
 
+void nombre()
+{
+	int escribir;
+	
+	BITMAP *escriba = load_bitmap("IMG/barra_texto.bmp",NULL);
+	
+	blit(escriba,screen,20,20,0,0,escriba->w,escriba->h);
+}
+
 void gameover()
 {
 	BITMAP *perdida = load_bitmap("IMG/gameover.bmp",NULL);
@@ -133,7 +142,7 @@ void dibujar()
 	BITMAP *pared = load_bitmap("IMG/paredd.bmp",NULL);
 	
 	leer();
-	
+		
 	for(i=0;i<MAXFIL;i++)
 	{
 		for(j=0;j<MAXCOL;j++)
@@ -333,13 +342,15 @@ int main()
 		if(jugador1.combustible.gastar == 0)
 		{
 			gameover();
-			break;
+			break;//deja que acabe todo el ciclo y permite apretar la letra Q para que se acabe el ciclo y la partida
 		}
 		
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 		
 		rest(40);
 	}
+	nombre();
+	
 	deinit();
 	
 	return 0;
