@@ -228,6 +228,10 @@ int main()
 	
 	play_midi(musica_fondo,1);//reproductor de musica
 	
+	//sonido
+	
+	SAMPLE *sound = load_wav("musica/sound_bala.wav");
+	
 	//bandera , se le da valores entre 0 y 1
 	jugador1.disparo.bandera=0;		
 	
@@ -312,6 +316,8 @@ int main()
 		if(key[KEY_SPACE])
 		{
 			jugador1.disparo.bandera = 1;
+			//sonido
+			play_sample(sound,100,150,1000,0);
 		}
 		if(key[KEY_RIGHT] && jugador1.combustible.reponer > 0)//teclas de movimiento del avion 
 		{
@@ -341,15 +347,13 @@ int main()
 		}
 		if(jugador1.combustible.gastar == 0)
 		{
-			gameover();
-			break;//deja que acabe todo el ciclo y permite apretar la letra Q para que se acabe el ciclo y la partida
+			nombre();
 		}
 		
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 		
 		rest(40);
 	}
-	nombre();
 	
 	deinit();
 	
