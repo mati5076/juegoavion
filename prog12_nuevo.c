@@ -39,6 +39,11 @@ void nombre_jugador()
 	}
 }
 
+void puntaje()
+{
+	BITMAP *numeros = load_bitmap("IMG/numero.bmp",NULL);
+}
+
 void gameover()
 {
 	BITMAP *perdida = load_bitmap("IMG/gameover.bmp",NULL);
