@@ -27,13 +27,16 @@ void menu()
 	}
 }
 
-void nombre()
+void nombre_jugador()
 {
 	int escribir;
 	
 	BITMAP *escriba = load_bitmap("IMG/barra_texto.bmp",NULL);
 	
-	blit(escriba,screen,20,20,0,0,escriba->w,escriba->h);
+	while(1)
+	{
+		blit(escriba,screen,20,20,0,0,escriba->w,escriba->h);
+	}
 }
 
 void gameover()
@@ -142,7 +145,9 @@ void dibujar()
 	BITMAP *pared = load_bitmap("IMG/paredd.bmp",NULL);
 	
 	leer();
-		
+	
+	blit(pared,screen,0,0,0,0,pared->w,pared->h);
+	
 	for(i=0;i<MAXFIL;i++)
 	{
 		for(j=0;j<MAXCOL;j++)
@@ -239,7 +244,7 @@ int main()
 	jug2.dispara.bandera_enemigo=0;
 	
 	menu();
-
+	
 	while (!key[KEY_ESC]) 
 	{	
 	//////////////////////////////////////////////////////////////////	
@@ -263,7 +268,8 @@ int main()
 		textout_ex(screen,font,"Vida", 100, 30, 0x9999, 0xFFFFFF);
 	
 		rectfill(screen,40,40,40+jugador1.combustible.gastar,45,0xFFFFFF);
-				
+		
+		//enemigo 		
 		if(jug2.seguir_derech < jugador1.mover_der+jug2.size_imgx) 
 		{
 			//bala 
@@ -290,6 +296,7 @@ int main()
 			//bala
 			jug2.dispara.automatico_y-=50;
 			jug2.seguir_arriba-=40;
+			jug2.dispara.bandera_enemigo=0;
 		}
 		if(jug2.dispara.bandera_enemigo == 1 )
 		{
@@ -301,6 +308,7 @@ int main()
 			jug2.dispara.bandera_enemigo=0;
 			jug2.dispara.automatico_y=jug2.seguir_arriba;
 		}
+		
 		//jugador del usuario
 		
 		if(jugador1.disparo.bandera == 1 )
@@ -316,7 +324,7 @@ int main()
 		if(key[KEY_SPACE])
 		{
 			jugador1.disparo.bandera = 1;
-			//sonido
+			//efecto sonido
 			play_sample(sound,100,150,1000,0);
 		}
 		if(key[KEY_RIGHT] && jugador1.combustible.reponer > 0)//teclas de movimiento del avion 
@@ -337,7 +345,6 @@ int main()
 			jugador1.disparo.y-=50;		
 			jugador1.mover_arriba-=50;//hace que se mueva hacia arriba , el signo menos es porque allegro tiene invertido las direcciones de arriba y abajo 
 			jugador1.combustible.gastar-=0.2;
-
 		}
 		else if(key[KEY_DOWN] && jugador1.combustible.reponer > 0) 
 		{
@@ -347,9 +354,14 @@ int main()
 		}
 		if(jugador1.combustible.gastar == 0)
 		{
-			nombre();
+			if(jugador1.combustible.gastar != 0)
+			{
+				nombre_jugador();
+			}
+			gameover();
+			break;
 		}
-		
+				
 		dibujar();//funcion que sirve para leer y ejecutar un archivo de txt
 		
 		rest(40);
