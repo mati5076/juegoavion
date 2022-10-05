@@ -39,11 +39,6 @@ void nombre_jugador()
 	}
 }
 
-void puntaje()
-{
-	BITMAP *numeros = load_bitmap("IMG/numero.bmp",NULL);
-}
-
 void gameover()
 {
 	BITMAP *perdida = load_bitmap("IMG/gameover.bmp",NULL);
@@ -161,6 +156,18 @@ void dibujar()
 			{
 				draw_sprite(screen,pared,20*j,15*i);
 			}
+		}
+	}
+}
+
+void puntaje()
+{
+	BITMAP *numeros = load_bitmap("IMG/numero.bmp",NULL);
+	while(1)
+	{
+		if(key[KEY_SPACE])
+		{
+			blit(numeros,screen,0,0,0,0,numeros->w,numeros->h);
 		}
 	}
 }
@@ -331,6 +338,7 @@ int main()
 			jugador1.disparo.bandera = 1;
 			//efecto sonido
 			play_sample(sound,100,150,1000,0);
+			//funcion del puntaje 
 		}
 		if(key[KEY_RIGHT] && jugador1.combustible.reponer > 0)//teclas de movimiento del avion 
 		{
